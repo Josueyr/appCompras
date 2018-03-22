@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col col-md"></div>
+  <div class="col-10 col-md-6">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <h4>Introduzca sus datos</h4>
+      <label>E-mail</label>
+      <input type="mail" class="form-control"
+          id="inputEmail" autofocus formControlName="email">
+      <label>Password</label>
+      <input type="password" class="form-control"
+          id="inputPassword" formControlName="password">
+          <hr>
+      <button type="submit" class="btn btn-primary" [disabled] = "!loginForm.valid">Iniciar Sesión</button>
+    </form>
+  </div>
+  <div class="col col-md"></div>
+</div>
