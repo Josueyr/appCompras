@@ -5,6 +5,8 @@ import { Router, ActivatedRoute} from '@angular/router';
 @Injectable()
 export class AutenticacionService {
 
+  error: string;
+
   constructor(private activatedrouter: ActivatedRoute, private router: Router) { }
 
   registroUsuario(userdata){
@@ -15,15 +17,24 @@ export class AutenticacionService {
   }
 
   inicioSesion(userdata){
-    console.log(userdata);
     firebase.auth().signInWithEmailAndPassword(userdata.email, userdata.password)
       .then(response => {
-        console.log(response);
         this.router.navigate(['/inicio']);
       })
       .catch(error =>{
-        console.log(error);
+        this.error = error.code;
       })
   }
 
+  isAuthenticated(){
+    const user = firebase.auth().currentUser;
+    if (user)
+      return true;
+    else
+      return false;
+  }
+
+  logout(){
+    firebase.auth().signOut();
+  }
 }

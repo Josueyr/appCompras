@@ -13,6 +13,9 @@ export class InisesComponent implements OnInit {
   loginForm: FormGroup;
   userdata: any;
 
+  mensaje: string;
+  error: boolean = false;
+
   constructor(private formBuilder: FormBuilder, 
               private autenticacionService: AutenticacionService, 
               private router: Router,
@@ -29,8 +32,31 @@ export class InisesComponent implements OnInit {
 
   onSubmit(){
     this.userdata = this.saveUserdata();
-    console.log("userdata ->", this.userdata);
-    this.autenticacionService.inicioSesion(this.userdata);
+    this.autenticacionService.inicioSesion(this.userdata)
+    setTimeout(() => {
+      if(this.isAuth() === false){
+        this.error = true;
+        switch (this.autenticacionService.error){
+          case ('auth/invalid-email'):{ 
+            this.mensaje = "El email no tiene un formato correcto";
+            break; 
+          } 
+          case ('auth/user-not-found'):{ 
+            this.mensaje = "Usuario no dado de alta";
+            break; 
+          } 
+          case ('auth/wrong-password'):{ 
+            this.mensaje = "Contraseña incorrecta";
+            break; 
+          } 
+           default: { 
+            this.mensaje = "Error al iniciar sesión: " + this.autenticacionService.error;
+            break; 
+          } 
+        }
+      }      
+    }, 1000);
+      
   }
   
   saveUserdata(){
@@ -39,5 +65,9 @@ export class InisesComponent implements OnInit {
       password: this.loginForm.get('password').value
     }
     return saveUserdata;
+  }
+
+  isAuth(){
+    return this.autenticacionService.isAuthenticated();
   }
 }
