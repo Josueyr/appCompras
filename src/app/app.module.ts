@@ -17,17 +17,18 @@ import { PresupuestosComponent } from './presupuestos/presupuestos/presupuestos.
 import { EditpresComponent } from './presupuestos/editpres/editpres.component';
 import { RegistroComponent } from './autenticacion/registro/registro.component';
 import { AutenticacionService } from './servicios/autenticacion.service';
+import { GuardService } from './servicios/guard.service';
 import { InisesComponent } from './autenticacion/inises/inises.component';
 
 const routes: Routes = [
   { path: '', component: InicioComponent },
-  { path: 'proveedores', component: ProveedoresComponent },
-  { path: 'addprovee', component: AddproveeComponent },
-  { path: 'addpres', component: AddpresComponent},
-  { path: 'editpres/:id', component: EditpresComponent },
-  { path: 'presupuestos', component: PresupuestosComponent },
-  { path: 'registro', component: RegistroComponent },
-  { path: 'inises', component: InisesComponent },
+  { path: 'proveedores', component: ProveedoresComponent,canActivate:[GuardService]},
+  { path: 'addprovee', component: AddproveeComponent,canActivate:[GuardService] },
+  { path: 'addpres', component: AddpresComponent, canActivate:[GuardService]},
+  { path: 'editpres/:id', component: EditpresComponent, canActivate:[GuardService] },
+  { path: 'presupuestos', component: PresupuestosComponent, canActivate:[GuardService] },
+  { path: 'registro', component: RegistroComponent},
+  { path: 'inises', component: InisesComponent},
   { path: '**', component: InicioComponent}
 ];
 
@@ -51,7 +52,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     HttpModule
   ],
-  providers: [ProveedoresService, PresupuestosService, AutenticacionService],
+  providers: [ProveedoresService, PresupuestosService, AutenticacionService, GuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
