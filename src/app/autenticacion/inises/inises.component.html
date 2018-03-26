@@ -2,18 +2,26 @@
   <div class="col col-md"></div>
   <div class="col-10 col-md-6">
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <h4>Iniciar Sesión</h4>
-      <label>E-mail</label>
+      <h4>Introduzca sus datos</h4>
+      <label>Correo Electrónico</label>
       <input type="mail" class="form-control"
-          id="inputEmail" autofocus formControlName="email">
-      <label>Password</label>
-      <input type="password" class="form-control"
-          id="inputPassword" formControlName="password">
-          <hr>
-      <button type="submit" class="btn btn-primary" [disabled] = "!loginForm.valid">Iniciar Sesión</button>
+             id="inputEmail" autofocus
+             formControlName="email">
+      <label>Contraseña</label>
+      <input type="password" class=form-control
+             id="inputPassword"
+             formControlName="password">
+      <hr>
+      <button type="submit" class="btn btn-primary"
+              [disabled]="!loginForm.valid"
+              *ngIf="!autenticando">Inicie sesión</button>
+      <button type="submit" class="btn btn-primary"
+              *ngIf="autenticando">Autenticando usuario...</button>
     </form>
-    <p>Si no dispone de cuenta, pulse <a routerLink='/registro'>aquí</a></p>
-    <p class="error alert alert-danger" *ngIf="error">{{mensaje}}</p>
+    <p>Si no dispone de cuenta pulse <a routerLink="/registro">aquí</a> </p>
+    <p class="alert alert-danger" *ngIf="mensaje">
+      El usuario o contraseña no es correcto
+    </p>
   </div>
   <div class="col col-md"></div>
 </div>

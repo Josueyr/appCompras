@@ -9,17 +9,20 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private autenticacionservice: AutenticacionService, private router: Router, private activatedroute: ActivatedRoute) { }
+  constructor(private autenticacionService: AutenticacionService,
+              private router: Router,
+              private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
   }
-  
-  isAuth(){
-    return this.autenticacionservice.isAuthenticated();
+
+  isAuth() {
+    return this.autenticacionService.isAuthenticated();
   }
 
-  onLogout(){
-    this.autenticacionservice.logout();
-    this.router.navigate(['/inises']);
+  onLogout() {
+    this.autenticacionService.logout();
+    this.router.navigate(['/inicio']);
   }
+
 }
