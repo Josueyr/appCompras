@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoadfileService } from '../../servicios/loadfile.service';
 import { Archivo } from './../file.modal';
 import { AngularFireList } from 'angularfire2/database';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-contratos',
@@ -10,7 +11,7 @@ import { AngularFireList } from 'angularfire2/database';
 })
 export class ContratosComponent implements OnInit {
 
-  uploads: AngularFireList<any[]>;
+  uploads: Observable<any[]>;
 
   constructor(private loadfileService: LoadfileService) { }
 

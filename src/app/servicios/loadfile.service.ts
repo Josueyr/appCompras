@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, AngularFireObject, AngularFireList } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import * as firebase from 'firebase';
 import { Archivo } from '../uploads/file.modal';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class LoadfileService {
 
   private basePath:string = '/uploads';
-  uploads: AngularFireList<any[]>;
+  uploadsRef: AngularFireList<Archivo>;
+  uploads: Observable<any[]>;
 
   constructor(public angularFireDatabase: AngularFireDatabase) { }
 
@@ -35,7 +37,8 @@ export class LoadfileService {
   }
 
   getUploads() {
-    this.uploads = this.angularFireDatabase.list(this.basePath);
+    this.uploadsRef = this.angularFireDatabase.list(this.basePath);
+    this.uploads = this.uploadsRef.valueChanges();
     return this.uploads;
   }
 
