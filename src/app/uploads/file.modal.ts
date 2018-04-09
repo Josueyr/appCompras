@@ -1,5 +1,6 @@
 export class Archivo {
-  $key: string;
+  key: string;
+  payload: any;
   file: File;
   name: string;
   url: string;

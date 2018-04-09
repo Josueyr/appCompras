@@ -38,16 +38,16 @@ export class LoadfileService {
 
   getUploads() {
     this.uploadsRef = this.angularFireDatabase.list(this.basePath);
-    this.uploads = this.uploadsRef.valueChanges();
+    this.uploads = this.uploadsRef.snapshotChanges()
     return this.uploads;
   }
 
   deleteUpload(upload: Archivo) {
-    this.deleteFileData(upload.$key)
-           .then(() => {
-             this.deleteFileStorage(upload.name)
-           })
-           .catch(error => console.log(error))
+    this.deleteFileData(upload.key)
+          //  .then(() => {
+          //    this.deleteFileStorage(upload.name)
+          //  })
+          //  .catch(error => console.log(error))
   }
 
   private deleteFileData(key: string){
